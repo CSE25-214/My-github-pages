@@ -1,0 +1,184 @@
+/* ==========================================================
+   GLADEATS — custom stylesheet
+   This file sits ON TOP of Bootstrap 5. Bootstrap handles the
+   grid, spacing utilities and components; this file supplies
+   the brand's own colours, fonts and small custom effects that
+   Bootstrap does not provide out of the box.
+   ========================================================== */
+
+:root{
+  --gd-night:#1E1A16;      /* base background */
+  --gd-night-2:#26201A;    /* card / panel background */
+  --gd-clay:#C15B34;       /* primary brand colour (buttons, links) */
+  --gd-sunset:#E8944A;     /* accent / hover colour */
+  --gd-acacia:#5C7A52;     /* secondary accent (menu category labels) */
+  --gd-sand:#EFE0C8;       /* body text on dark background */
+}
+
+body{
+  background-color: var(--gd-night);
+  color: var(--gd-sand);
+  font-family: 'Manrope', sans-serif;
+  font-weight: 300;
+}
+
+h1, h2, h3, h4, .brand-font{
+  font-family: 'Bricolage Grotesque', sans-serif;
+  font-weight: 700;
+}
+
+a{ color: var(--gd-sunset); }
+a:hover{ color: var(--gd-clay); }
+
+/* ---------- Navbar ---------- */
+.navbar-gladeats{
+  background-color: var(--gd-night-2);
+  border-bottom: 1px solid rgba(239,224,200,0.12);
+}
+.navbar-gladeats .navbar-brand{
+  font-family: 'Bricolage Grotesque', sans-serif;
+  font-weight: 800;
+  color: var(--gd-sand);
+  letter-spacing: 0.02em;
+}
+.navbar-gladeats .navbar-brand span{ color: var(--gd-sunset); }
+.navbar-gladeats .brand-domain{
+  display:block;
+  font-size:0.65rem;
+  letter-spacing:0.12em;
+  color: rgba(239,224,200,0.5);
+  font-family: 'Courier New', monospace;
+}
+.navbar-gladeats .nav-link{
+  color: rgba(239,224,200,0.8);
+  font-size: 0.85rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+.navbar-gladeats .nav-link.active,
+.navbar-gladeats .nav-link:hover{
+  color: var(--gd-sunset);
+}
+
+/* ---------- Hero ---------- */
+.hero{
+  padding: 6rem 0;
+  background:
+    radial-gradient(ellipse 60% 50% at 80% 20%, rgba(232,148,74,0.18), transparent 60%),
+    radial-gradient(ellipse 50% 40% at 15% 85%, rgba(92,122,82,0.22), transparent 60%),
+    var(--gd-night);
+}
+.hero h1{ font-size: clamp(2.6rem, 6vw, 4.5rem); line-height: 1.05; }
+.hero .sun{ color: var(--gd-sunset); }
+
+/* ---------- Buttons ---------- */
+.btn-gladeats{
+  background-color: var(--gd-clay);
+  border-color: var(--gd-clay);
+  color: var(--gd-sand);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 0.85rem;
+}
+.btn-gladeats:hover{
+  background-color: var(--gd-sunset);
+  border-color: var(--gd-sunset);
+  color: var(--gd-night);
+}
+.btn-outline-gladeats{
+  border-color: rgba(239,224,200,0.4);
+  color: var(--gd-sand);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 0.85rem;
+}
+.btn-outline-gladeats:hover{
+  border-color: var(--gd-sunset);
+  color: var(--gd-sunset);
+}
+
+/* ---------- Cards / panels ---------- */
+.card-gladeats{
+  background-color: var(--gd-night-2);
+  border: 1px solid rgba(239,224,200,0.12);
+  border-radius: 6px;
+}
+
+/* ---------- Menu list ---------- */
+.menu-category{
+  color: var(--gd-acacia);
+  font-family: 'Bricolage Grotesque', sans-serif;
+  font-weight: 700;
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+}
+.menu-row{
+  border-bottom: 1px dashed rgba(239,224,200,0.15);
+  padding: 0.75rem 0;
+}
+.menu-price{
+  font-family: 'Courier New', monospace;
+  color: var(--gd-sunset);
+}
+
+/* ---------- Woven signature divider ---------- */
+.gd-weave{
+  height: 34px;
+  background: repeating-linear-gradient(
+    100deg,
+    var(--gd-clay) 0 18px,
+    var(--gd-sunset) 18px 36px,
+    var(--gd-acacia) 36px 54px,
+    var(--gd-sand) 54px 56px,
+    transparent 56px 72px
+  );
+  background-size: 288px 100%;
+  opacity: 0;
+  transform: scaleX(0.9);
+  transition: opacity 1s ease, transform 1s ease;
+}
+.gd-weave.in-view{
+  opacity: 1;
+  transform: scaleX(1);
+}
+
+/* ---------- Footer ---------- */
+footer{
+  background-color: #120f0c;
+  border-top: 1px solid rgba(239,224,200,0.12);
+  font-size: 0.9rem;
+}
+footer a{ color: rgba(239,224,200,0.8); }
+footer a:hover{ color: var(--gd-sunset); }
+
+/* ---------- Gallery ---------- */
+.gallery-thumb{
+  border-radius: 6px;
+  overflow: hidden;
+  border: 1px solid rgba(239,224,200,0.12);
+}
+.gallery-thumb img{ transition: transform .4s ease; }
+.gallery-thumb:hover img{ transform: scale(1.06); }
+
+/* ---------- Form validation styling (Bootstrap hooks) ---------- */
+.form-label{ color: var(--gd-sand); font-size: 0.9rem; }
+.form-control, .form-select{
+  background-color: var(--gd-night-2);
+  border-color: rgba(239,224,200,0.2);
+  color: var(--gd-sand);
+}
+.form-control:focus, .form-select:focus{
+  background-color: var(--gd-night-2);
+  color: var(--gd-sand);
+  border-color: var(--gd-sunset);
+  box-shadow: 0 0 0 0.2rem rgba(232,148,74,0.25);
+}
+
+/* ---------- Back to top button ---------- */
+#backToTop{
+  position: fixed;
+  bottom: 1.5rem;
+  right: 1.5rem;
+  display: none;
+  z-index: 200;
+}

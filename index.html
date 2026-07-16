@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Copper & Oak — Liquor Bar & Kitchen</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,500;9..144,600;9..144,700&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --espresso:#181210;
+    --espresso-2:#231a16;
+    --parchment:#ECE3D2;
+    --amber:#C17817;
+    --copper:#B8703B;
+    --burgundy:#5E2430;
+    --gold-muted:#9A7B4F;
+    --line: rgba(236,227,210,0.14);
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--espresso);
+    color:var(--parchment);
+    font-family:'Inter',sans-serif;
+    font-weight:300;
+    overflow-x:hidden;
+  }
+  a{color:inherit;text-decoration:none;}
+  .display{font-family:'Fraunces',serif;}
+  .mono{font-family:'JetBrains Mono',monospace;}
+
+  ::selection{background:var(--amber);color:var(--espresso);}
+
+  @media (prefers-reduced-motion: reduce){
+    *{animation-duration:0.01ms !important; animation-iteration-count:1 !important; transition-duration:0.01ms !important;}
+  }
+
+  /* ---------- NAV ---------- */
+  header{
+    position:fixed; top:0; left:0; right:0; z-index:100;
+    display:flex; justify-content:space-between; align-items:center;
+    padding:1.6rem 5vw;
+    background:linear-gradient(to bottom, rgba(24,18,16,0.9), transparent);
+    backdrop-filter:blur(2px);
+  }
+  .brand{font-family:'Fraunces',serif; font-size:1.25rem; letter-spacing:0.08em; font-weight:600;}
+  .brand span{color:var(--amber);}
+  nav ul{list-style:none; display:flex; gap:2.4rem;}
+  nav a{font-size:0.8rem; letter-spacing:0.12em; text-transform:uppercase; color:var(--parchment); opacity:0.75; transition:opacity .3s, color .3s;}
+  nav a:hover, nav a:focus-visible{opacity:1; color:var(--amber);}
+  .nav-toggle{display:none; background:none; border:none; color:var(--parchment); font-size:1.5rem; cursor:pointer;}
+
+  a:focus-visible, button:focus-visible{outline:2px solid var(--amber); outline-offset:3px;}
+
+  /* ---------- HERO ---------- */
+  .hero{
+    min-height:100vh;
+    display:flex; flex-direction:column; justify-content:center;
+    position:relative;
+    padding:0 5vw;
+    background:
+      radial-gradient(ellipse 60% 50% at 75% 20%, rgba(193,120,23,0.16), transparent 60%),
+      radial-gradient(ellipse 50% 40% at 15% 85%, rgba(94,36,48,0.25), transparent 60%),
+      var(--espresso);
+  }
+  .hero-eyebrow{
+    font-family:'JetBrains Mono',monospace; font-size:0.75rem; letter-spacing:0.25em;
+    color:var(--gold-muted); text-transform:uppercase; margin-bottom:1.6rem;
+    opacity:0; animation:fadeUp .9s ease forwards; animation-delay:.1s;
+  }
+  h1.hero-title{
+    font-size:clamp(3.2rem, 9vw, 7.2rem);
+    line-height:0.95;
+    font-weight:500;
+    letter-spacing:-0.01em;
+    max-width:16ch;
+    opacity:0; animation:fadeUp 1s ease forwards; animation-delay:.25s;
+  }
+  h1.hero-title em{
+    font-style:italic; font-weight:300; color:var(--amber);
+  }
+  .hero-sub{
+    margin-top:1.8rem; max-width:38ch; font-size:1.05rem; line-height:1.7; color:rgba(236,227,210,0.75);
+    opacity:0; animation:fadeUp 1s ease forwards; animation-delay:.4s;
+  }
+  .hero-cta{
+    margin-top:2.6rem; display:flex; gap:1rem; flex-wrap:wrap;
+    opacity:0; animation:fadeUp 1s ease forwards; animation-delay:.55s;
+  }
+  .btn{
+    padding:0.95rem 2rem; font-size:0.8rem; letter-spacing:0.14em; text-transform:uppercase;
+    border-radius:2px; transition:all .35s ease; cursor:pointer; border:1px solid transparent;
+  }
+  .btn-solid{background:var(--amber); color:var(--espresso); font-weight:500;}
+  .btn-solid:hover{background:#d68a2c; transform:translateY(-2px);}
+  .btn-line{border-color:rgba(236,227,210,0.35); color:var(--parchment);}
+  .btn-line:hover{border-color:var(--amber); color:var(--amber);}
+
+  @keyframes fadeUp{from{opacity:0; transform:translateY(22px);} to{opacity:1; transform:translateY(0);}}
+
+  .scroll-cue{
+    position:absolute; bottom:2.4rem; left:5vw; font-family:'JetBrains Mono',monospace;
+    font-size:0.7rem; letter-spacing:0.2em; color:var(--gold-muted); text-transform:uppercase;
+    display:flex; align-items:center; gap:0.7rem;
+  }
+  .scroll-cue::after{
+    content:''; width:1px; height:34px; background:linear-gradient(var(--gold-muted), transparent);
+    animation:pulse 2.2s ease-in-out infinite;
+  }
+  @keyframes pulse{0%,100%{opacity:0.3;} 50%{opacity:1;}}
+
+  /* ---------- SIGNATURE POUR DIVIDER ---------- */
+  .pour{
+    position:relative; height:160px; display:flex; align-items:center; justify-content:center;
+    background:var(--espresso);
+  }
+  .pour svg{width:min(90vw, 640px); height:100%; overflow:visible;}
+  .pour-fill{
+    fill:none; stroke:url(#pourGrad); stroke-width:3; stroke-dasharray:1000; stroke-dashoffset:1000;
+    transition:stroke-dashoffset 1.6s cubic-bezier(.2,.7,.2,1);
+  }
+  .pour.in-view .pour-fill{stroke-dashoffset:0;}
+  .pour-label{
+    position:absolute; font-family:'JetBrains Mono',monospace; font-size:0.65rem; letter-spacing:0.2em;
+    color:var(--gold-muted); text-transform:uppercase; top:14px;
+  }
+
+  /* ---------- SECTION SHELL ---------- */
+  section.block{padding:7rem 5vw;}
+  .section-head{
+    display:flex; justify-content:space-between; align-items:flex-end; flex-wrap:wrap; gap:1rem;
+    margin-bottom:3.5rem; border-bottom:1px solid var(--line); padding-bottom:1.6rem;
+  }
+  .section-eyebrow{font-family:'JetBrains Mono',monospace; font-size:0.72rem; letter-spacing:0.2em; color:var(--gold-muted); text-transform:uppercase; margin-bottom:0.6rem;}
+  .section-title{font-family:'Fraunces',serif; font-size:clamp(2rem,4vw,3rem); font-weight:500;}
+
+  /* ---------- ABOUT ---------- */
+  .about{display:grid; grid-template-columns:1.1fr 0.9fr; gap:4rem; align-items:center;}
+  .about p{line-height:1.85; color:rgba(236,227,210,0.78); margin-bottom:1.4rem; font-size:1rem;}
+  .about-stats{display:flex; flex-direction:column; gap:1.8rem; border-left:1px solid var(--line); padding-left:2rem;}
+  .stat-num{font-family:'Fraunces',serif; font-size:2.4rem; color:var(--amber); font-weight:600;}
+  .stat-label{font-size:0.78rem; letter-spacing:0.1em; text-transform:uppercase; color:rgba(236,227,210,0.55); margin-top:0.2rem;}
+
+  /* ---------- MENU ---------- */
+  .menu-grid{display:grid; grid-template-columns:repeat(2,1fr); gap:3.5rem 4rem;}
+  .menu-cat-title{font-family:'Fraunces',serif; font-style:italic; font-size:1.4rem; color:var(--copper); margin-bottom:1.6rem;}
+  .menu-item{
+    display:flex; justify-content:space-between; align-items:baseline; gap:1rem;
+    padding:0.95rem 0; border-bottom:1px dashed var(--line);
+    position:relative; transition:padding-left .35s ease;
+  }
+  .menu-item:hover{padding-left:0.6rem;}
+  .menu-item::before{
+    content:''; position:absolute; left:-5vw; top:0; bottom:0; width:3px; background:var(--amber);
+    transform:scaleY(0); transform-origin:bottom; transition:transform .35s ease;
+  }
+  .menu-item:hover::before{transform:scaleY(1);}
+  .menu-item-name{font-size:1rem; letter-spacing:0.01em;}
+  .menu-item-desc{display:block; font-size:0.82rem; color:rgba(236,227,210,0.5); margin-top:0.3rem; font-style:italic; max-width:32ch;}
+  .menu-item-price{font-family:'JetBrains Mono',monospace; color:var(--gold-muted); white-space:nowrap; font-size:0.9rem;}
+
+  /* ---------- HOURS / VISIT ---------- */
+  .visit{
+    display:grid; grid-template-columns:1fr 1fr 1fr; gap:2.5rem;
+    background:var(--espresso-2); border:1px solid var(--line); border-radius:4px; padding:3rem;
+  }
+  .visit-block h3{font-family:'Fraunces',serif; font-size:1.1rem; color:var(--amber); margin-bottom:1rem; font-weight:600;}
+  .visit-block p, .visit-block a{line-height:1.9; color:rgba(236,227,210,0.8); font-size:0.95rem; display:block;}
+  .visit-block a:hover{color:var(--amber);}
+
+  /* ---------- CONTACT / FOOTER ---------- */
+  footer{
+    background:linear-gradient(180deg, var(--espresso) 0%, #100b09 100%);
+    padding:6rem 5vw 2.5rem;
+    border-top:1px solid var(--line);
+  }
+  .footer-top{display:grid; grid-template-columns:1.3fr 1fr 1fr; gap:3rem; margin-bottom:4rem;}
+  .footer-title{font-family:'Fraunces',serif; font-size:2.2rem; font-weight:500; max-width:14ch; margin-bottom:1.4rem;}
+  .footer-title em{color:var(--amber); font-style:italic;}
+  .contact-line{display:flex; align-items:center; gap:0.8rem; margin-bottom:1rem; font-size:0.98rem;}
+  .contact-line .ic{color:var(--amber); font-family:'JetBrains Mono',monospace;}
+  .foot-col h4{font-size:0.75rem; letter-spacing:0.15em; text-transform:uppercase; color:var(--gold-muted); margin-bottom:1.2rem;}
+  .foot-col a, .foot-col p{display:block; color:rgba(236,227,210,0.75); font-size:0.92rem; margin-bottom:0.7rem; transition:color .3s;}
+  .foot-col a:hover{color:var(--amber);}
+  .foot-bottom{
+    display:flex; justify-content:space-between; flex-wrap:wrap; gap:1rem;
+    padding-top:2rem; border-top:1px solid var(--line);
+    font-size:0.78rem; color:rgba(236,227,210,0.4); font-family:'JetBrains Mono',monospace;
+  }
+
+  /* ---------- RESPONSIVE ---------- */
+  @media (max-width: 880px){
+    nav ul{display:none;}
+    .nav-toggle{display:block;}
+    .about{grid-template-columns:1fr;}
+    .menu-grid{grid-template-columns:1fr;}
+    .visit{grid-template-columns:1fr; padding:2rem;}
+    .footer-top{grid-template-columns:1fr; gap:2.2rem;}
+    section.block{padding:5rem 6vw;}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="brand">COPPER <span>&</span> OAK</div>
+  <nav>
+    <ul>
+      <li><a href="#about">Story</a></li>
+      <li><a href="#menu">Menu</a></li>
+      <li><a href="#visit">Visit</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+</header>
+
+<section class="hero">
+  <div class="hero-eyebrow">Est. Neighborhood Liquor Bar & Kitchen</div>
+  <h1 class="hero-title">Slow pours. <em>Honest</em> plates.</h1>
+  <p class="hero-sub">A dim, copper-lit room built around a long oak bar — where the whiskey is poured with a heavy hand and the kitchen closes late.</p>
+  <div class="hero-cta">
+    <a href="#menu" class="btn btn-solid">View the Menu</a>
+    <a href="#contact" class="btn btn-line">Reserve a Table</a>
+  </div>
+  <div class="scroll-cue">Scroll</div>
+</section>
+
+<div class="pour" id="pourDivider">
+  <div class="pour-label">Poured Nightly Since Open</div>
+  <svg viewBox="0 0 640 160" preserveAspectRatio="none" aria-hidden="true">
+    <defs>
+      <linearGradient id="pourGrad" x1="0" y1="0" x2="1" y2="0">
+        <stop offset="0%" stop-color="#5E2430"/>
+        <stop offset="50%" stop-color="#C17817"/>
+        <stop offset="100%" stop-color="#9A7B4F"/>
+      </linearGradient>
+    </defs>
+    <path class="pour-fill" d="M10,80 C 160,20 220,140 320,80 C 420,20 480,140 630,80" />
+  </svg>
+</div>
+
+<section class="block" id="about">
+  <div class="section-head">
+    <div>
+      <div class="section-eyebrow">The Story</div>
+      <div class="section-title">Built around the bottle</div>
+    </div>
+  </div>
+  <div class="about">
+    <div>
+      <p>Copper & Oak started as a single barrel of bourbon and a folding table. Today it's a full liquor bar and kitchen, but the idea hasn't changed: pour generously, cook simply, and let people stay as long as they like.</p>
+      <p>Our back bar holds over 200 spirits, from dusty single barrels to the bottle you had at your grandfather's table. The kitchen runs small and seasonal, built to sit alongside a drink rather than compete with it.</p>
+    </div>
+    <div class="about-stats">
+      <div>
+        <div class="stat-num">200+</div>
+        <div class="stat-label">Spirits behind the bar</div>
+      </div>
+      <div>
+        <div class="stat-num">14</div>
+        <div class="stat-label">House cocktails on rotation</div>
+      </div>
+      <div>
+        <div class="stat-num">11PM</div>
+        <div class="stat-label">Kitchen open till, every night</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="block" id="menu">
+  <div class="section-head">
+    <div>
+      <div class="section-eyebrow">On Offer</div>
+      <div class="section-title">The Menu</div>
+    </div>
+  </div>
+  <div class="menu-grid">
+    <div>
+      <div class="menu-cat-title">House Cocktails</div>
+      <div class="menu-item">
+        <div><span class="menu-item-name">Oak & Ember</span><span class="menu-item-desc">Bourbon, charred cinnamon, orange bitters</span></div>
+        <div class="menu-item-price">$14</div>
+      </div>
+      <div class="menu-item">
+        <div><span class="menu-item-name">Copper Fizz</span><span class="menu-item-desc">Gin, elderflower, soda, lemon peel</span></div>
+        <div class="menu-item-price">$12</div>
+      </div>
+      <div class="menu-item">
+        <div><span class="menu-item-name">Smoked Negroni</span><span class="menu-item-desc">Mezcal, sweet vermouth, campari, smoke</span></div>
+        <div class="menu-item-price">$15</div>
+      </div>
+      <div class="menu-item">
+        <div><span class="menu-item-name">Barrel Sour</span><span class="menu-item-desc">Rye, lemon, egg white, demerara</span></div>
+        <div class="menu-item-price">$13</div>
+      </div>
+    </div>
+    <div>
+      <div class="menu-cat-title">From the Kitchen</div>
+      <div class="menu-item">
+        <div><span class="menu-item-name">Charred Octopus</span><span class="menu-item-desc">Smoked paprika, fingerling potato, aioli</span></div>
+        <div class="menu-item-price">$19</div>
+      </div>
+      <div class="menu-item">
+        <div><span class="menu-item-name">Whiskey Glazed Ribs</span><span class="menu-item-desc">House bourbon glaze, pickled slaw</span></div>
+        <div class="menu-item-price">$24</div>
+      </div>
+      <div class="menu-item">
+        <div><span class="menu-item-name">Oak-Smoked Cheese Board</span><span class="menu-item-desc">Local cheeses, fig jam, charred bread</span></div>
+        <div class="menu-item-price">$18</div>
+      </div>
+      <div class="menu-item">
+        <div><span class="menu-item-name">Late Night Flatbread</span><span class="menu-item-desc">Confit garlic, taleggio, chili honey</span></div>
+        <div class="menu-item-price">$16</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="block" id="visit">
+  <div class="section-head">
+    <div>
+      <div class="section-eyebrow">Details</div>
+      <div class="section-title">Plan Your Visit</div>
+    </div>
+  </div>
+  <div class="visit">
+    <div class="visit-block">
+      <h3>Hours</h3>
+      <p>Mon – Thu: 5pm – 12am</p>
+      <p>Fri – Sat: 5pm – 2am</p>
+      <p>Sunday: 4pm – 11pm</p>
+    </div>
+    <div class="visit-block">
+      <h3>Reservations</h3>
+      <p>Walk-ins welcome at the bar. Tables of 5+ recommended to book ahead by phone.</p>
+      <a href="tel:+74920555">Call +74 920 555</a>
+    </div>
+    <div class="visit-block">
+      <h3>Private Events</h3>
+      <p>The back room seats up to 20 for private tastings and dinners.</p>
+      <a href="mailto:hugginstolamo@gmail.com">hugginstolamo@gmail.com</a>
+    </div>
+  </div>
+</section>
+
+<footer id="contact">
+  <div class="footer-top">
+    <div>
+      <div class="footer-title">Come pull up <em>a stool.</em></div>
+      <p style="color:rgba(236,227,210,0.65); line-height:1.8; max-width:34ch; font-size:0.95rem;">
+        No reservation required for the bar. Just find a seat, and we'll pour you something good.
+      </p>
+    </div>
+    <div class="foot-col">
+      <h4>Contact</h4>
+      <div class="contact-line"><span class="ic">@</span><a href="mailto:hugginstolamo@gmail.com">hugginstolamo@gmail.com</a></div>
+      <div class="contact-line"><span class="ic">#</span><a href="tel:+74920555">+74 920 555</a></div>
+    </div>
+    <div class="foot-col">
+      <h4>Navigate</h4>
+      <a href="#about">Story</a>
+      <a href="#menu">Menu</a>
+      <a href="#visit">Visit</a>
+    </div>
+  </div>
+  <div class="foot-bottom">
+    <span>© 2026 COPPER & OAK. All rights reserved.</span>
+    <span>Please drink responsibly.</span>
+  </div>
+</footer>
+
+<script>
+  // Reveal the pour-line signature element when it scrolls into view
+  const pourEl = document.getElementById('pourDivider');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting){
+        pourEl.classList.add('in-view');
+        io.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.4 });
+  io.observe(pourEl);
+
+  // Smooth-close mobile nav on link tap (no-op placeholder for future menu toggle)
+  document.querySelectorAll('nav a').forEach(a=>{
+    a.addEventListener('click', ()=>{ /* reserved for mobile nav state */ });
+  });
+</script>
+
+</body>
+</html>
